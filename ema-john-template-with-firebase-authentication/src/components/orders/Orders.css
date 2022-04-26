@@ -1,0 +1,12 @@
+.orders-container {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+.orders-container .order-products {
+  width: 70%;
+  margin-left: calc(40% - 275px);
+}
+.orders-container .order-cart {
+  width: 30%;
+}

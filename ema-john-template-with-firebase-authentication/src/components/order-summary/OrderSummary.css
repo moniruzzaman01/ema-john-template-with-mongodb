@@ -1,0 +1,12 @@
+.order-summary {
+  background-color: rgb(250, 205, 150);
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: -1;
+  width: 20%;
+}
+.order-summary .order {
+  margin: 100px 10px 10px 10px;
+}
