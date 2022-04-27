@@ -21,10 +21,24 @@ async function run() {
     const productCollection = client
       .db("ema-john-template")
       .collection("products");
+
+    //get all data
     app.get("/products", async (req, res) => {
+      const pageNumber = parseInt(req.query.pageNumber);
+      const productPerPage = parseInt(req.query.productPerPage);
       const cursor = productCollection.find({});
-      const products = await cursor.toArray();
+      const products = await cursor
+        .skip(pageNumber * productPerPage)
+        .limit(productPerPage)
+        .toArray();
+      console.log("pageNumber", pageNumber, productPerPage);
       res.send(products);
+    });
+
+    //get number of data
+    app.get("/numberOfData", async (req, res) => {
+      const number = await productCollection.estimatedDocumentCount();
+      res.send({ number });
     });
   } finally {
     // await client.close();

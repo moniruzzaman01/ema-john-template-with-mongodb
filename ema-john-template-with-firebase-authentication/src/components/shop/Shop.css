@@ -9,3 +9,12 @@
   grid-gap: 45px;
   padding: 20px;
 }
+.pagination button {
+  background-color: #fff;
+  border: 1px solid salmon;
+  cursor: pointer;
+}
+.pagination .select {
+  background-color: salmon;
+  color: #fff;
+}

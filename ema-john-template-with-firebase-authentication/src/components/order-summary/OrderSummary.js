@@ -1,7 +1,9 @@
 import React from "react";
+import useCart from "../../hooks/useCart";
 import "./OrderSummary.css";
 
-function OrderSummary({ cart }) {
+function OrderSummary() {
+  const [cart] = useCart([]);
   let totalProduct = 0;
   let totalPrice = 0;
   let shippingCharge = 0;

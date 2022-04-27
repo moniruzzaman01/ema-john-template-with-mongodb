@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { getStoredData } from "../utilities/fakedb-2";
+import useProducts from "./useProducts";
 
-const useCart = (products) => {
+const useCart = () => {
+  const [products] = useProducts();
   const [cart, setCart] = useState([]);
 
   useEffect(() => {

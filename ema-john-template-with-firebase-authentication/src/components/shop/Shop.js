@@ -6,8 +6,30 @@ import Product from "../product/Product";
 import "./Shop.css";
 
 function Shop() {
-  const [products] = useProducts();
+  const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [productPerPage, setProductPerPage] = useState(5);
+  const [pageNumber, setPageNumber] = useState(0);
+  // console.log(products);
+  useEffect(() => {
+    fetch(
+      `http://localhost:5000/products?pageNumber=${pageNumber}&productPerPage=${productPerPage}`
+    )
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, [pageNumber, productPerPage]);
+
+  //Number of products
+  useEffect(() => {
+    fetch("http://localhost:5000/numberOfData")
+      .then((res) => res.json())
+      .then((data) => {
+        const totalData = data.number;
+        const pages = Math.ceil(totalData / productPerPage);
+        setTotalPages(pages);
+      });
+  }, [productPerPage]);
   //onload cart set
   useEffect(() => {
     const localCart = getStoredData();
@@ -48,9 +70,32 @@ function Shop() {
             product={product}
           ></Product>
         ))}
+        <div className="pagination">
+          {[...Array(totalPages).keys()].map((number, index) => (
+            <button
+              className={pageNumber === number ? "select" : ""}
+              onClick={() => setPageNumber(number)}
+              style={{
+                marginRight: "5px",
+              }}
+              key={index}
+            >
+              {number + 1}
+            </button>
+          ))}
+          <select
+            onChange={(e) => setProductPerPage(e.target.value)}
+            defaultValue={5}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </div>
       </div>
       <div className="cart-container">
-        <OrderSummary cart={cart}></OrderSummary>
+        <OrderSummary></OrderSummary>
       </div>
     </div>
   );
