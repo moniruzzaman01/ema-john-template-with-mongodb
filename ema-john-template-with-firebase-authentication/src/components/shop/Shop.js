@@ -95,7 +95,7 @@ function Shop() {
         </div>
       </div>
       <div className="cart-container">
-        <OrderSummary></OrderSummary>
+        {/* <OrderSummary></OrderSummary> */}
       </div>
     </div>
   );
